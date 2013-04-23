@@ -1,9 +1,0 @@
-#boucle local
-auto lo
-iface lo inet loopback
-
-#wifi dhcp
-#auto wlan0
-iface wlan0 inet dhcp
-        wireless-essid NUMERICABLE-8938
-        wireless-key 77060b626a4b6eca1de7e4e607
