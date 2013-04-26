@@ -52,6 +52,18 @@ network={
         auth_alg=OPEN
 }
 ' > wpa.config
+echo '
+	auto lo
+	iface lo inet loopback
 
-#cp interfaces /media/fs/etc/network/interfaces
-#cp wpa.config /media/fs/etc/wpa.config
+
+	allow-hotplug wlan0
+	iface wlan0 inet dhcp
+	wpa-conf /etc/wpa.config
+
+	auto eth0
+	iface eth0 inet dhcp
+' > interfaces
+
+cp interfaces /media/fs/etc/network/interfaces
+cp wpa.config /media/fs/etc/wpa.config
