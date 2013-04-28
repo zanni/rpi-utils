@@ -1,10 +1,10 @@
 #!/bin/bash
 # dep apt-get install git gcc-arm-linux-gnueabi make ncurses-dev 
 FS_PATH=/media/fs
-HERE=$(pwd)
-BUILD_PATH=$HERE/../build
+HERE=$(dirname $0)
+cd $HERE/../build
+BUILD_PATH=$(pwd)
 NODE_PATH=$BUILD_PATH/node
-
 NODE_URL=git@github.com:joyent/node.git
 NODE_VERSION=v0.10.5-release #v0.8.23-release
 
@@ -31,9 +31,11 @@ if [ ! -d $TOOL_PATH  ]
 then
 	cd $BUILD_PATH
 	git clone $TOOL_URL
+	cd $HERE
 fi
 
 HOST=$TOOL_PATH/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf
+echo $TOOL_PATH
 export CPP="${HOST}-gcc -E"
 export STRIP="${HOST}-strip"
 export OBJCOPY="${HOST}-objcopy"
@@ -57,7 +59,7 @@ then
 		cd $NODE_PATH
 		git checkout -b origin/$NODE_VERSION
 		make clean 
-		./configure --prefix=$FS_PATH--without-snapshot --dest-cpu=arm --dest-os=linux 
+		./configure --prefix=$FS_PATH --without-snapshot --dest-cpu=arm --dest-os=linux 
 		make --jobs 8 --prefix $FS_PATH
 		make install
 		fixNpm
