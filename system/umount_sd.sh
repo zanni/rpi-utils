@@ -14,3 +14,6 @@ fi
 sync
 umount $BOOT
 umount $FS
+
+rm -rf $DEF_BOOT
+rm -rf $DEF_FS

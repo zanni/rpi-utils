@@ -1,7 +1,10 @@
 #!/bin/bash
 FS_PATH=/media/fs
+echo "/**********************************"/
+echo "Setup usb automount..."
+echo "	create file: "$FS_PATH/etc/udev/rules.d/10-usbautomount.rule
 cat > $FS_PATH/etc/udev/rules.d/10-usbautomount.rule <<-EOF
-	KERNEL!="sd[b-z]*", GOTO="auto_mount_end"
+	KERNEL!="sd[a-z]*", GOTO="auto_mount_end"
 	ACTION=="add", PROGRAM!="/sbin/blkid %N", GOTO="auto_mount_end"
 
 	# Set environment

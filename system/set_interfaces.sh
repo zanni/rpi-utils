@@ -1,5 +1,7 @@
 #!/bin/bash
 FS_PATH=/media/fs
+echo "/**********************************"/
+echo "Setup networking..."
 if [[ -z "$1" ]]
 then 
         echo "you must provide wifi_ssid and wifi_pass"
@@ -10,11 +12,11 @@ else
                 echo "you must provide wifi_ssid and wifi_pass"
         exit 1
         else
-                echo "set device hostname: "$1
+                echo "set device wifi settings: "$1"/"$2
                 echo $1 > $FS_PATH/etc/hostname
         fi
 fi
-
+echo "  create file: "$FS_PATH/etc/wpa.config
 cat > $FS_PATH/etc/wpa.config <<-EOF
         #On indique tout d abord où se situe le programme (socket avec wpa_cli...)
         ctrl_interface=/var/run/wpa_supplicant
@@ -68,6 +70,7 @@ cat > $FS_PATH/etc/wpa.config <<-EOF
                 auth_alg=OPEN
         }
 EOF
+echo "  create file: "$FS_PATH/etc/network/interfaces
 cat > $FS_PATH/etc/network/interfaces<<-EOF
 	auto lo
 	iface lo inet loopback
